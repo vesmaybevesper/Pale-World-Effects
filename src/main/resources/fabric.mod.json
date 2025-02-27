@@ -3,20 +3,23 @@
 	"id": "paleworldfx",
 	"version": "${version}",
 	"name": "Pale World Effects",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "Pale Worlds FX in a standalone mod!",
 	"authors": [
-		"Me!"
+		"VesMaybeVesper"
 	],
 	"contact": {
-		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"homepage": "https://modrinth.com/project/pale-world-effects-only",
+		"sources": "https://github.com/vesmaybevesper/Pale-World-Effects"
 	},
-	"license": "CC0-1.0",
+	"license": "All Rights Reserved",
 	"icon": "assets/paleworldfx/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
 			"vesper.paleworldfx.PaleWorldEffects"
+		],
+		"modmenu": [
+			"vesper.paleworldfx.ModMenuInit"
 		]
 	},
 	"mixins": [
@@ -30,5 +33,9 @@
 	},
 	"suggests": {
 		"another-mod": "*"
+	},
+	"conflicts": {
+		"pale-world": "*",
+		"foggypalegarden": "*"
 	}
 }

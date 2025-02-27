@@ -1,5 +1,6 @@
 package vesper.paleworldfx;
 
+import eu.midnightdust.lib.config.MidnightConfig;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -18,7 +19,6 @@ public class PaleWorldEffects implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-
-		LOGGER.info("Hello Fabric world!");
+		MidnightConfig.init(PaleWorldEffects.MOD_ID, Config.class);
 	}
 }

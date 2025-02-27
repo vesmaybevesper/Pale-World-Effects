@@ -1,0 +1,7 @@
+{
+  "paleworldfx.midnightconfig.title": "Pale World Config",
+  "pale-world.midnightconfig.horrorModeSelect": "Horror Mode",
+  "pale-world.midnightconfig.enum.horrorVals.TRUE": "Yes",
+  "pale-world.midnightconfig.enum.horrorVals.FALSE": "No",
+  "pale-world.midnightconfig.horrorModeSelect.tooltip": "Toggles Horror Mode."
+}
