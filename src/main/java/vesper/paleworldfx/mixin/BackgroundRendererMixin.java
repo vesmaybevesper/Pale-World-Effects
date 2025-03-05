@@ -57,11 +57,11 @@ public class BackgroundRendererMixin {
 		if (Config.horrorMode) {
 			fogStart = (viewDistance * 0.8F) + fogFade * (0.1F - (viewDistance * 0.8F));
 			fogEnd = (viewDistance) + fogFade * (8F - (viewDistance));
-			fogAlphaBase = 0.9F;
+			fogAlphaBase = 0.99F;
 		} else {
-			fogStart = (viewDistance * 0.8F) + fogFade * (0.5F - (viewDistance * 0.8F));
-			fogEnd = (viewDistance) + fogFade * (20F - (viewDistance));
-			fogAlphaBase = 0.7F;
+			fogStart = (viewDistance * 0.8F) + fogFade * (Config.fogStart - (viewDistance * 0.8F));
+			fogEnd = (viewDistance) + fogFade * (Config.fogEnd - (viewDistance));
+			fogAlphaBase = Config.fogTransparency ;
 		}
 
 		float fogRed = color.x + fogFade * (0.8F - color.x);
@@ -69,7 +69,7 @@ public class BackgroundRendererMixin {
 		float fogBlue = color.z + fogFade * (0.85F - color.z);
 		float fogAlpha = color.w + fogFade * (fogAlphaBase - color.w);
 
-		PALE_GARDEN_FOG = new Fog(fogStart, fogEnd, FogShape.SPHERE, fogRed, fogGreen, fogBlue, fogAlpha);
+		PALE_GARDEN_FOG = new Fog(fogStart, fogEnd, FogShape.CYLINDER, fogRed, fogGreen, fogBlue, fogAlpha);
 		cir.setReturnValue(PALE_GARDEN_FOG);
 	}
 }
