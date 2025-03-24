@@ -18,8 +18,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vesper.paleworldfx.Config;
-
-
 import static vesper.paleworldfx.FogStateManager.fogFade;
 
 @Mixin(BackgroundRenderer.class)
@@ -61,7 +59,7 @@ public class BackgroundRendererMixin {
 		} else {
 			fogStart = (viewDistance * 0.8F) + fogFade * (Config.fogStart - (viewDistance * 0.8F));
 			fogEnd = (viewDistance) + fogFade * (Config.fogEnd - (viewDistance));
-			fogAlphaBase = Config.fogTransparency ;
+			fogAlphaBase = Config.fogTransparency;
 		}
 
 		float fogRed = color.x + fogFade * (0.8F - color.x);
