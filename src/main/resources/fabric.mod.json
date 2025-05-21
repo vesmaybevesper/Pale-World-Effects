@@ -3,12 +3,12 @@
 	"id": "paleworldfx",
 	"version": "${version}",
 	"name": "Pale World Effects",
-	"description": "Pale Worlds FX in a standalone mod!",
+	"description": "Pale World's FX in a standalone mod!",
 	"authors": [
 		"VesMaybeVesper"
 	],
 	"contact": {
-		"homepage": "https://modrinth.com/project/pale-world-effects-only",
+		"homepage": "https://modrinth.com/project/paleworldfx",
 		"sources": "https://github.com/vesmaybevesper/Pale-World-Effects"
 	},
 	"license": "All Rights Reserved",
