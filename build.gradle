@@ -23,6 +23,12 @@ repositories {
 	}
 }
 
+fabricApi {
+	configureDataGeneration {
+		client = true
+	}
+}
+
 dependencies {
 	// To change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -34,6 +40,8 @@ dependencies {
 	modCompileOnly ("com.terraformersmc:modmenu:${project.modmenu_version}")
 	modImplementation include ("maven.modrinth:midnightlib:${project.midnightlib_version}")
 	compileOnly("maven.modrinth:iris:${project.iris}")
+	compileOnly("maven.modrinth:fog:${project.fog}")
+	implementation 'com.google.code.gson:gson:2.13.1'
 }
 
 processResources {
