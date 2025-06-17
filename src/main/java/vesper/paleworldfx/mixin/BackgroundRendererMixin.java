@@ -18,18 +18,27 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import vesper.paleworldfx.Config;
+
+import java.io.FileNotFoundException;
+
 import static vesper.paleworldfx.Utils.FogStateManager.fogFade;
 
 @Mixin(BackgroundRenderer.class)
 public class BackgroundRendererMixin {
-	private static final float FADE_SPEED = 0.002f;
+	private static final float FADE_SPEED = Config.fogFade;
 	private static float fogStart;
 	private static float fogEnd;
 	private static float fogAlphaBase;
+    private static float fogRed;
+    private static float fogGreen;
+    private static float fogBlue;
+    private static float fogAlpha;
+
 
 	@Inject(method = "applyFog", at = @At("TAIL"), cancellable = true)
-	private static void modifyFogSettings(Camera camera, BackgroundRenderer.FogType fogType, Vector4f color, float viewDistance, boolean thickenFog, float tickDelta, CallbackInfoReturnable<Fog> cir) {
-			Fog PALE_GARDEN_FOG;
+	private static void modifyFogSettings(Camera camera, BackgroundRenderer.FogType fogType, Vector4f color, float viewDistance, boolean thickenFog, float tickDelta, CallbackInfoReturnable<Fog> cir) throws FileNotFoundException {
+		Fog PALE_GARDEN_FOG;
+
 
 			assert MinecraftClient.getInstance().player != null;
 			ClientWorld world = MinecraftClient.getInstance().world;
@@ -62,13 +71,14 @@ public class BackgroundRendererMixin {
 				fogAlphaBase = Config.fogTransparency;
 			}
 
-			float fogRed = color.x + fogFade * (0.8F - color.x);
-			float fogGreen = color.y + fogFade * (0.8F - color.y);
-			float fogBlue = color.z + fogFade * (0.85F - color.z);
-			float fogAlpha = color.w + fogFade * (fogAlphaBase - color.w);
+			fogRed = color.x + fogFade * (0.8F - color.x);
+			fogGreen = color.y + fogFade * (0.8F - color.y);
+			fogBlue = color.z + fogFade * (0.85F - color.z);
+			fogAlpha = color.w + fogFade * (fogAlphaBase - color.w);
 
-			PALE_GARDEN_FOG = new Fog(fogStart, fogEnd, FogShape.CYLINDER, fogRed, fogGreen, fogBlue, fogAlpha);
+			PALE_GARDEN_FOG = new Fog(fogStart, fogEnd, FogShape.SPHERE, fogRed, fogGreen, fogBlue, fogAlpha);
 			cir.setReturnValue(PALE_GARDEN_FOG);
-		}
+	}
 }
+
 
