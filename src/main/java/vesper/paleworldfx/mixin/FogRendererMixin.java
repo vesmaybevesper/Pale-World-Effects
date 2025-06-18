@@ -58,7 +58,6 @@ public abstract class FogRendererMixin {
 		}else {return;}
 
 		Config.horrorMode = Config.horrorModeSelect == Config.horrorVals.TRUE;
-		float fogAlpha;
 	}
 			if (Config.horrorMode) {
 				fogData.environmentalStart = (renderDistanceBlocks * 0.8F) + fogFade * (0.1F - (renderDistanceBlocks * 0.8F));
@@ -76,10 +75,6 @@ public abstract class FogRendererMixin {
 			 color.y = color.y + fogFade * (0.8F - color.y);
 			 color.z = color.z + fogFade * (0.85F - color.z);
 			 color.w = color.w + fogFade * (fogAlphaBase - color.w);
-
-
-
-
 		}
 }
 
