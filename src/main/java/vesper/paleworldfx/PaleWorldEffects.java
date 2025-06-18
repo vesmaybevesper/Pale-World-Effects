@@ -5,6 +5,7 @@ import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import vesper.paleworldfx.Utils.UsefulBools;
 
 public class PaleWorldEffects implements ModInitializer {
 	public static final String MOD_ID = "paleworldfx";
@@ -13,5 +14,7 @@ public class PaleWorldEffects implements ModInitializer {
 	@Override
 	public void onInitialize() {
 		MidnightConfig.init(PaleWorldEffects.MOD_ID, Config.class);
+		UsefulBools.setBools();
+		LOGGER.info("Loaded");
 	}
 }
