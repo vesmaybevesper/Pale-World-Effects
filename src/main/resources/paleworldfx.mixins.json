@@ -3,7 +3,7 @@
   "package": "vesper.paleworldfx.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
-    "BackgroundRendererMixin",
+    "FogRendererMixin",
     "BlocksMixin"
   ],
   "injectors": {
