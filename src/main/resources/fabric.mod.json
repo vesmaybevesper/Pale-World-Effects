@@ -1,42 +1,33 @@
 {
-	"schemaVersion": 1,
-	"id": "paleworldfx",
-	"version": "${version}",
-	"name": "Pale World Effects",
-	"description": "Pale World's FX in a standalone mod!",
-	"authors": [
-		"VesMaybeVesper"
-	],
-	"contact": {
-		"homepage": "https://modrinth.com/project/paleworldfx",
-		"sources": "https://github.com/vesmaybevesper/Pale-World-Effects"
-	},
-	"license": "All Rights Reserved",
-	"icon": "assets/paleworldfx/icon.png",
-	"environment": "*",
-	"entrypoints": {
-		"main": [
-			"vesper.paleworldfx.PaleWorldEffects"
-		],
-		"modmenu": [
-			"vesper.paleworldfx.ModMenuInit"
-		]
-	},
-	"mixins": [
-		"paleworldfx.mixins.json"
-	],
-	"depends": {
-		"fabricloader": ">=0.16.10",
-		"minecraft": "~1.21",
-		"java": ">=21",
-		"fabric-api": "*"
-	},
-	"suggests": {
-		"another-mod": "*"
-	},
-	"conflicts": {
-		"pale-world": "*",
-		"foggypalegarden": "*",
-		"glowing-eyeblossom": "*"
-	}
+  "schemaVersion": 1,
+  "id": "paleworldfx",
+  "name": "Pale World Effects",
+  "version": "${version}",
+  "authors": ["VesMaybeVesper"],
+  "contact": {
+    "sources": "",
+    "issues": ""
+  },
+  "description": "A Mod Description",
+  "icon": "assets/icon.png",
+  "license": "MIT",
+  "environment": "*",
+  "accessWidener": "modtemplate.accesswidener",
+  "entrypoints": {
+    "main": [
+      "dev.vesper.paleworldfx.fabric.FabricEntrypoint"
+    ],
+    "client": [
+      "dev.vesper.paleworldfx.fabric.FabricClientEntrypoint"
+    ],
+    "modmenu": [
+      "dev.vesper.paleworldfx.fabric.ModMenuInit"
+    ]
+  },
+  "mixins": [
+    "modtemplate.mixins.json"
+  ],
+  "depends": {
+    "fabric-api": "*"
+  }
 }
