@@ -29,10 +29,12 @@ repositories{
     maven("https://maven.isxander.dev/releases") {
         name = "Xander Maven"
     }
+    maven (url = "https://api.modrinth.com/maven")
 }
 
 dependencies{
     compileOnly("dev.isxander:yet-another-config-lib:${property("deps.yacl")}")
+    implementation("maven.modrinth:eveningstarlib:${property("deps.esl")}")
 }
 
 neoForge {

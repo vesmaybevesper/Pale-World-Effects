@@ -43,8 +43,9 @@ public class Config {
     @SerialEntry
     public static float fogTransparency = 0.7F;
 
-    @AutoGen(category = "Fog Config")
+    // Unused and I don't remember what it was supposed to be for
+    /*@AutoGen(category = "Fog Config")
     @FloatField
     @SerialEntry
-    public static float fogFade = 0.002F;
+    public static float fogFade = 0.002F;*/
 }

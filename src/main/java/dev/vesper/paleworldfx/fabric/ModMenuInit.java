@@ -10,4 +10,4 @@ public class ModMenuInit implements ModMenuApi {
         return Config::config;
     }
 }
-//? }
+//?}

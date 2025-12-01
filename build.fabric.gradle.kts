@@ -37,6 +37,7 @@ repositories {
         name = "Xander Maven"
     }
     maven (url = "https://maven.terraformersmc.com/")
+    maven (url = "https://api.modrinth.com/maven")
 }
 
 dependencies {
@@ -50,6 +51,7 @@ dependencies {
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric-api")}")
     modImplementation("dev.isxander:yet-another-config-lib:${property("deps.yacl")}")
     modImplementation("com.terraformersmc:modmenu:${property("deps.modmenu")}")
+    modImplementation("maven.modrinth:eveningstarlib:${property("deps.esl")}")
 
     val modules = listOf("transitive-access-wideners-v1", "registry-sync-v0", "resource-loader-v0")
     for (it in modules) modImplementation(fabricApi.module("fabric-$it", property("deps.fabric-api") as String))
