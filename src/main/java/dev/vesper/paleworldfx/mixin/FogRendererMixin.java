@@ -1,12 +1,7 @@
 package dev.vesper.paleworldfx.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-//? fabric {
-import dev.vesper.eveningstarlib.fabric.ESLModChecks;
-//?}
-//? neoforge {
-/*import dev.vesper.eveningstarlib.neoforge.ESLModChecks;
-*///?}
+import dev.vesper.eveningstarlib.common.ESLModChecks;
 import dev.vesper.paleworldfx.common.Config;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
