@@ -4,7 +4,7 @@ package dev.vesper.paleworldfx;
 import dev.vesper.paleworldfx.fabric.FabricPlatformImpl;
 //?}
 //? neoforge {
-/*import dev.spagurder.modtemplate.neoforge.NeoforgePlatformImpl;
+/*import dev.vesper.paleworldfx.neoforge.NeoforgePlatformImpl;
 *///?}
 
 public interface Platform {

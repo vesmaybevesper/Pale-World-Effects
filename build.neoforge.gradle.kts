@@ -41,11 +41,11 @@ neoForge {
     version = property("deps.neoforge") as String
     validateAccessTransformers = true
 
-    if (hasProperty("deps.parchment")) parchment {
+    /*if (hasProperty("deps.parchment")) parchment {
         val (mc, ver) = (property("deps.parchment") as String).split(':')
         mappingsVersion = ver
         minecraftVersion = mc
-    }
+    }*/
 
     runs {
         register("client") {

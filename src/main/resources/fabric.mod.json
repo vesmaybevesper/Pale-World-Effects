@@ -8,11 +8,11 @@
     "sources": "",
     "issues": ""
   },
-  "description": "A Mod Description",
+  "description": "A VFX mod focused on the Pale Garden!",
   "icon": "assets/icon.png",
   "license": "MIT",
   "environment": "*",
-  "accessWidener": "modtemplate.accesswidener",
+  "accessWidener": "paleworldfx.accesswidener",
   "entrypoints": {
     "main": [
       "dev.vesper.paleworldfx.fabric.FabricEntrypoint"
@@ -25,9 +25,10 @@
     ]
   },
   "mixins": [
-    "modtemplate.mixins.json"
+    "paleworldfx.mixins.json"
   ],
   "depends": {
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "minecraft": ">=1.21.11"
   }
 }

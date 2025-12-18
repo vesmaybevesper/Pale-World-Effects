@@ -7,9 +7,9 @@
     "defaultRequire": 1
   },
   "mixins": [
-    "FogRendererMixin"
   ],
   "client": [
-    "BlocksMixin"
+    "BlocksMixin",
+    "FogRendererMixin"
   ]
 }

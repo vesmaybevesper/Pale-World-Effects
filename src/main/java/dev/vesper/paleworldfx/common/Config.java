@@ -11,6 +11,7 @@ import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.Identifier;
 
 public class Config {
+//? fabric
     public static ConfigClassHandler<Config> HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
                 .id(Identifier.fromNamespaceAndPath("paleworldfx", "config"))
             .serializer(configConfigClassHandler -> GsonConfigSerializerBuilder.create(configConfigClassHandler)
@@ -18,10 +19,10 @@ public class Config {
                     .build())
             .build();
 
-
     public static Screen config(Screen parent){
         return HANDLER.generateGui().generateScreen(parent);
     }
+    //?}
 
     @AutoGen(category = "Fog Config")
     @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)

@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+import net.fabricmc.loom.configuration.providers.mappings.mojmap.MojangMappingLayer
+
+
 plugins {
     id("fabric-loom")
     id("dev.kikugie.postprocess.jsonlang")
@@ -42,11 +45,7 @@ repositories {
 
 dependencies {
     minecraft("com.mojang:minecraft:${property("deps.minecraft")}")
-    mappings(loom.layered {
-        officialMojangMappings()
-        if (hasProperty("deps.parchment"))
-            parchment("org.parchmentmc.data:parchment-${property("deps.parchment")}@zip")
-    })
+    mappings(loom.officialMojangMappings())
     modImplementation("net.fabricmc:fabric-loader:${property("deps.fabric-loader")}")
     modImplementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric-api")}")
     modImplementation("dev.isxander:yet-another-config-lib:${property("deps.yacl")}")
