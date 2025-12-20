@@ -1,8 +1,5 @@
 @file:Suppress("UnstableApiUsage")
 
-import net.fabricmc.loom.configuration.providers.mappings.mojmap.MojangMappingLayer
-
-
 plugins {
     id("fabric-loom")
     id("dev.kikugie.postprocess.jsonlang")
@@ -21,6 +18,10 @@ tasks.named<ProcessResources>("processResources") {
         expand(props)
     }
 }
+
+
+tasks.named("processResources").configure { dependsOn("stonecutterGenerate") }
+tasks.named("postProcessMainResources").configure { dependsOn("stonecutterGenerate") }
 
 version = "${property("mod.version")}+${property("deps.minecraft")}-fabric"
 base.archivesName = property("mod.id") as String
@@ -96,9 +97,9 @@ val additionalVersions: List<String> = additionalVersionsStr
 
 publishMods {
     file = tasks.remapJar.map { it.archiveFile.get() }
-    additionalFiles.from(tasks.remapSourcesJar.map { it.archiveFile.get() })
+    //additionalFiles.from(tasks.remapSourcesJar.map { it.archiveFile.get() })
 
-    type = BETA
+    type = STABLE
     displayName = "${property("mod.name")} ${property("mod.version")} for ${stonecutter.current.version} Fabric"
     version = "${property("mod.version")}+${property("deps.minecraft")}-fabric"
     changelog = provider { rootProject.file("CHANGELOG.md").readText() }
@@ -110,6 +111,9 @@ publishMods {
         minecraftVersions.add(stonecutter.current.version)
         minecraftVersions.addAll(additionalVersions)
         requires("fabric-api")
+        requires("yacl")
+        requires("eveningstarlib")
+        optional("modmenu")
     }
 
     curseforge {
@@ -118,5 +122,8 @@ publishMods {
         minecraftVersions.add(stonecutter.current.version)
         minecraftVersions.addAll(additionalVersions)
         requires("fabric-api")
+        requires("yacl")
+        requires("eveningstarlib")
+        optional("modmenu")
     }
 }

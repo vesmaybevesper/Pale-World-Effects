@@ -1,7 +1,7 @@
 package dev.vesper.paleworldfx.fabric;
 
 //? fabric {
-import dev.vesper.paleworldfx.PaleWorldFX;
+/*import dev.vesper.paleworldfx.PaleWorldFX;
 import net.fabricmc.api.ModInitializer;
 
 public class FabricEntrypoint implements ModInitializer {
@@ -12,4 +12,4 @@ public class FabricEntrypoint implements ModInitializer {
     }
 
 }
-//?}
+*///?}

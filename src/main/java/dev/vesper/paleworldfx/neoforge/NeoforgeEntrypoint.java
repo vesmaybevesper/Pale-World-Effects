@@ -1,7 +1,7 @@
 package dev.vesper.paleworldfx.neoforge;
 
 //? neoforge {
-/*import dev.vesper.paleworldfx.PaleWorldFX;
+import dev.vesper.paleworldfx.PaleWorldFX;
 // sample_content
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -25,4 +25,4 @@ public class NeoforgeEntrypoint {
         }
     }
 }
-*///?}
+//?}

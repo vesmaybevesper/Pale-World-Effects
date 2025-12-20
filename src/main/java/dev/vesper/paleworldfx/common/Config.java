@@ -8,15 +8,30 @@ import dev.isxander.yacl3.config.v2.api.autogen.FloatField;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import dev.isxander.yacl3.platform.YACLPlatform;
 import net.minecraft.client.gui.screens.Screen;
-import net.minecraft.resources.Identifier;
+//? < 1.21.11 {
+import net.minecraft.resources.ResourceLocation;
+//?}
+//? 1.21.11 {
+/*import net.minecraft.resources.Identifier;
+*///?}
 
 public class Config {
-    public static ConfigClassHandler<Config> HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
+    //? 1.21.11 {
+    /*public static ConfigClassHandler<Config> HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
                 .id(Identifier.fromNamespaceAndPath("paleworldfx", "config"))
             .serializer(configConfigClassHandler -> GsonConfigSerializerBuilder.create(configConfigClassHandler)
                     .setPath(YACLPlatform.getConfigDir().resolve("paleworldfx.json"))
                     .build())
             .build();
+    *///?}
+    //? <1.21.11 {
+    public static ConfigClassHandler<Config> HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
+            .id(ResourceLocation.fromNamespaceAndPath("paleworldfx", "config"))
+            .serializer(configConfigClassHandler -> GsonConfigSerializerBuilder.create(configConfigClassHandler)
+                    .setPath(YACLPlatform.getConfigDir().resolve("paleworldfx.json"))
+                    .build())
+            .build();
+    //?}
 
     public static Screen config(Screen parent){
         return HANDLER.generateGui().generateScreen(parent);

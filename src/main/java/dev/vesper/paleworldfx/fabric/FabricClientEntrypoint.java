@@ -1,7 +1,7 @@
 package dev.vesper.paleworldfx.fabric;
 
 //? fabric {
-import dev.vesper.paleworldfx.PaleWorldFX;
+/*import dev.vesper.paleworldfx.PaleWorldFX;
 import dev.vesper.paleworldfx.common.Config;
 import net.fabricmc.api.ClientModInitializer;
 
@@ -14,4 +14,4 @@ public class FabricClientEntrypoint implements ClientModInitializer {
     }
 
 }
-//?}
+*///?}

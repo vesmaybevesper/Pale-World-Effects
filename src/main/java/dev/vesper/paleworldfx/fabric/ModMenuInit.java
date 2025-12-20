@@ -1,6 +1,6 @@
 package dev.vesper.paleworldfx.fabric;
 //? fabric {
-import com.terraformersmc.modmenu.api.ConfigScreenFactory;
+/*import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import dev.vesper.paleworldfx.common.Config;
 
@@ -10,4 +10,4 @@ public class ModMenuInit implements ModMenuApi {
         return Config::config;
     }
 }
-//?}
+*///?}

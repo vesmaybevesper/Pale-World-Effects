@@ -36,7 +36,7 @@ public class BlocksMixin {
                     });
                 }
     }
-
+//? >=1.21.6 {
     @ModifyExpressionValue(
             method = {"<clinit>"},
             at = {@At(
@@ -57,4 +57,27 @@ public class BlocksMixin {
                     return original.lightLevel((blockstate) -> {return 5;});
                 }
     }
+    //?}
+    // 1.21.4 potted is bugged, I'll try and fix it but idk why its complaining
+/*
+    @ModifyExpressionValue(
+            method = {"<clinit>"},
+            at = {@At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;"
+            )},
+            slice = {@Slice(
+                    from = @At(
+                            value = "CONSTANT",
+                            args = {"stringValue=potted_open_eyeblossom"}
+                    )
+            )}
+    )
+    private static BlockBehaviour.Properties pottedOpenEyeblossom(BlockBehaviour.Properties original) {
+        if (horrorMode) {
+            return original.lightLevel((blockstate) -> {return 3;});
+        } else {
+            return original.lightLevel((blockstate) -> {return 5;});
+        }
+    }*/
 }
