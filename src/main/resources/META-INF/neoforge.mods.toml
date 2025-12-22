@@ -24,4 +24,3 @@ side = "CLIENT"
 [[dependencies.paleworldfx]]
 modId = "minecraft"
 type = "required"
-versionRange = "[1.21.11,)"

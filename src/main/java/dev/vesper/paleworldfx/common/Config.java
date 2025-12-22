@@ -16,43 +16,50 @@ import net.minecraft.resources.ResourceLocation;
 *///?}
 
 public class Config {
-    //? 1.21.11 {
-    /*public static ConfigClassHandler<Config> HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
-                .id(Identifier.fromNamespaceAndPath("paleworldfx", "config"))
-            .serializer(configConfigClassHandler -> GsonConfigSerializerBuilder.create(configConfigClassHandler)
-                    .setPath(YACLPlatform.getConfigDir().resolve("paleworldfx.json"))
-                    .build())
-            .build();
-    *///?}
-    //? <1.21.11 {
-    public static ConfigClassHandler<Config> HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
-            .id(ResourceLocation.fromNamespaceAndPath("paleworldfx", "config"))
-            .serializer(configConfigClassHandler -> GsonConfigSerializerBuilder.create(configConfigClassHandler)
-                    .setPath(YACLPlatform.getConfigDir().resolve("paleworldfx.json"))
-                    .build())
-            .build();
-    //?}
+    public static ConfigClassHandler<Config> HANDLER;
 
-    public static Screen config(Screen parent){
-        return HANDLER.generateGui().generateScreen(parent);
+    public static ConfigClassHandler<Config> getHandler() {
+        if (HANDLER == null) {
+            //? 1.21.11 {
+            /*HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
+                    .id(Identifier.fromNamespaceAndPath("paleworldfx", "config"))
+                    .serializer(configConfigClassHandler -> GsonConfigSerializerBuilder.create(configConfigClassHandler)
+                            .setPath(YACLPlatform.getConfigDir().resolve("paleworldfx.json"))
+                            .build())
+                    .build();*/
+            //?}
+            //? <1.21.11 {
+            HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
+                    .id(ResourceLocation.fromNamespaceAndPath("paleworldfx", "config"))
+                    .serializer(configConfigClassHandler -> GsonConfigSerializerBuilder.create(configConfigClassHandler)
+                            .setPath(YACLPlatform.getConfigDir().resolve("paleworldfx.json"))
+                            .build())
+                    .build();
+            //?}
+        }
+        return HANDLER;
     }
 
-    @AutoGen(category = "Fog Config")
+    public static Screen config(Screen parent){
+        return getHandler().generateGui().generateScreen(parent);
+    }
+
+    @AutoGen(category = "Main")
     @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
     @SerialEntry
     public static boolean horrorMode = false;
 
-    @AutoGen(category = "Fog Config")
+    @AutoGen(category = "Main")
     @FloatField
     @SerialEntry
     public static float fogStart = 0.5f;
 
-    @AutoGen(category = "Fog Config")
+    @AutoGen(category = "Main")
     @FloatField
     @SerialEntry
     public static float fogEnd = 20F;
 
-    @AutoGen(category = "Fog Config")
+    @AutoGen(category = "Main")
     @FloatField
     @SerialEntry
     public static float fogTransparency = 0.7F;

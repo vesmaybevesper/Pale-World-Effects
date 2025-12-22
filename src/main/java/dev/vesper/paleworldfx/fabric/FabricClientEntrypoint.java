@@ -10,7 +10,7 @@ public class FabricClientEntrypoint implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         PaleWorldFX.LOG.info("Initializing {} Client", PaleWorldFX.MOD_ID);
-        Config.HANDLER.load();
+        Config.getHandler().load();
     }
 
 }
