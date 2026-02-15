@@ -1,7 +1,7 @@
-package dev.vesper.paleworldfx.fabric;
+package dev.vesper.palegardenfx.fabric;
 
 //? fabric {
-/*import dev.vesper.paleworldfx.Platform;
+/*import dev.vesper.palegardenfx.Platform;
 import net.fabricmc.loader.api.FabricLoader;
 
 public class FabricPlatformImpl implements Platform {

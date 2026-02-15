@@ -1,15 +1,15 @@
-package dev.vesper.paleworldfx.fabric;
+package dev.vesper.palegardenfx.fabric;
 
 //? fabric {
-/*import dev.vesper.paleworldfx.PaleWorldFX;
-import dev.vesper.paleworldfx.common.Config;
+/*import dev.vesper.palegardenfx.PaleGardenFX;
+import dev.vesper.palegardenfx.common.Config;
 import net.fabricmc.api.ClientModInitializer;
 
 public class FabricClientEntrypoint implements ClientModInitializer {
 
     @Override
     public void onInitializeClient() {
-        PaleWorldFX.LOG.info("Initializing {} Client", PaleWorldFX.MOD_ID);
+        PaleGardenFX.LOG.info("Initializing {} Client", PaleGardenFX.MOD_ID);
         Config.getHandler().load();
     }
 

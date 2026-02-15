@@ -1,7 +1,7 @@
-package dev.vesper.paleworldfx.neoforge;
+package dev.vesper.palegardenfx.neoforge;
 
 //? neoforge {
-import dev.vesper.paleworldfx.Platform;
+import dev.vesper.palegardenfx.Platform;
 import net.neoforged.fml.ModList;
 
 public class NeoforgePlatformImpl implements Platform {

@@ -1,4 +1,4 @@
-package dev.vesper.paleworldfx.common;
+package dev.vesper.palegardenfx.common;
 
 import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
@@ -26,8 +26,8 @@ public class Config {
                     .serializer(configConfigClassHandler -> GsonConfigSerializerBuilder.create(configConfigClassHandler)
                             .setPath(YACLPlatform.getConfigDir().resolve("paleworldfx.json"))
                             .build())
-                    .build();*/
-            //?}
+                    .build();
+            *///?}
             //? <1.21.11 {
             HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
                     .id(ResourceLocation.fromNamespaceAndPath("paleworldfx", "config"))

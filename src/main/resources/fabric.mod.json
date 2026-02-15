@@ -12,7 +12,7 @@
   "icon": "assets/icon.png",
   "license": "MIT",
   "environment": "*",
-  "accessWidener": "paleworldfx.accesswidener",
+  "accessWidener": "palegardenfx.accesswidener",
   "entrypoints": {
     "main": [
       "dev.vesper.paleworldfx.fabric.FabricEntrypoint"

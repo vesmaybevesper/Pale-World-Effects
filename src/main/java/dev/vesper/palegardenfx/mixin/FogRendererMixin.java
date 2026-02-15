@@ -1,9 +1,9 @@
-package dev.vesper.paleworldfx.mixin;
+package dev.vesper.palegardenfx.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.vesper.eveningstarlib.common.ESLModChecks;
-import dev.vesper.paleworldfx.common.Config;
-import dev.vesper.paleworldfx.common.FogStateManager;
+import dev.vesper.palegardenfx.common.Config;
+import dev.vesper.palegardenfx.common.FogStateManager;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
 import net.minecraft.client.Minecraft;
@@ -33,7 +33,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import static dev.vesper.paleworldfx.common.FogStateManager.fogFade;
+import static dev.vesper.palegardenfx.common.FogStateManager.fogFade;
 
 @Mixin(FogRenderer.class)
 public class FogRendererMixin {

@@ -1,11 +1,12 @@
-package dev.vesper.paleworldfx;
+package dev.vesper.palegardenfx;
 
 //? fabric {
-/*import dev.vesper.paleworldfx.fabric.FabricPlatformImpl;
+/*import dev.vesper.palegardenfx.fabric.FabricPlatformImpl;
 *///?}
 //? neoforge {
-import dev.vesper.paleworldfx.neoforge.NeoforgePlatformImpl;
+import dev.vesper.palegardenfx.neoforge.NeoforgePlatformImpl;
 //?}
+
 
 public interface Platform {
 
