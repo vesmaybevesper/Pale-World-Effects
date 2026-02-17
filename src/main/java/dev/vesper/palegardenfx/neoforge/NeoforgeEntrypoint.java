@@ -1,7 +1,7 @@
 package dev.vesper.palegardenfx.neoforge;
 
 //? neoforge {
-import dev.vesper.palegardenfx.PaleGardenFX;
+/*import dev.vesper.palegardenfx.PaleGardenFX;
 import dev.vesper.palegardenfx.common.Config;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -31,4 +31,4 @@ public class NeoforgeEntrypoint {
         }
     }
 }
-//?}
+*///?}

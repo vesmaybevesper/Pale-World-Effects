@@ -43,7 +43,7 @@ public class FogRendererMixin {
     private static float fogStart;
     private static float fogEnd;
 //? 1.21.11 {
-    /*@Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getDevice()Lcom/mojang/blaze3d/systems/GpuDevice;", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    @Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getDevice()Lcom/mojang/blaze3d/systems/GpuDevice;", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void afterLoadLevel(Camera camera, int i, DeltaTracker deltaTracker, float f, ClientLevel world, CallbackInfoReturnable<Vector4f> cir, float tickProgress, Vector4f color, float renderDistanceBlocks, @Local Entity entity, @Local FogData fogData) {
         if (entity instanceof Player player) {
             if (!ESLModChecks.isShaders()) {
@@ -85,9 +85,9 @@ public class FogRendererMixin {
 
         }
     }
-    *///?}
+    //?}
 //? < 1.21.11 && !1.21.4 {
-    @Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getDevice()Lcom/mojang/blaze3d/systems/GpuDevice;", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
+    /*@Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lcom/mojang/blaze3d/systems/RenderSystem;getDevice()Lcom/mojang/blaze3d/systems/GpuDevice;", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD, cancellable = true)
     private void afterLoadLevel(Camera camera, int i, boolean bl, DeltaTracker deltaTracker, float f, ClientLevel world, CallbackInfoReturnable<Vector4f> cir, float g, Vector4f color, float renderDistanceBlocks, FogType fogType, Entity entity, FogData fogData, float j) {
         if (entity instanceof Player player) {
             if (!ESLModChecks.isShaders()) {
@@ -129,7 +129,7 @@ public class FogRendererMixin {
 
         }
     }
-    //?}
+    *///?}
     //? 1.21.4 {
 /*@Inject(method = "setupFog", at = @At(value = "TAIL"), cancellable = true)
 private static void afterLoadLevel(Camera camera, FogRenderer.FogMode fogMode, Vector4f color, float viewDistance, boolean bl, float g, CallbackInfoReturnable<FogParameters> cir) {

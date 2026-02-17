@@ -15,13 +15,13 @@
   "accessWidener": "palegardenfx.accesswidener",
   "entrypoints": {
     "main": [
-      "dev.vesper.paleworldfx.fabric.FabricEntrypoint"
+      "dev.vesper.palegardenfx.fabric.FabricEntrypoint"
     ],
     "client": [
-      "dev.vesper.paleworldfx.fabric.FabricClientEntrypoint"
+      "dev.vesper.palegardenfx.fabric.FabricClientEntrypoint"
     ],
     "modmenu": [
-      "dev.vesper.paleworldfx.fabric.ModMenuInit"
+      "dev.vesper.palegardenfx.fabric.ModMenuInit"
     ]
   },
   "mixins": [
