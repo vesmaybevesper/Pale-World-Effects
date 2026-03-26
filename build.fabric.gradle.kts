@@ -42,6 +42,7 @@ repositories {
     }
     maven (url = "https://maven.terraformersmc.com/")
     maven (url = "https://api.modrinth.com/maven")
+    maven("https://maven.nucleoid.xyz/") { name = "Nucleoid" }
 }
 
 dependencies {
@@ -90,6 +91,7 @@ val additionalVersions: List<String> = additionalVersionsStr
     ?: emptyList()
 
 publishMods {
+    file = tasks.jar.map { it.archiveFile.get() }
     //additionalFiles.from(tasks.remapSourcesJar.map { it.archiveFile.get() })
 
     type = STABLE

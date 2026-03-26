@@ -3,8 +3,8 @@ loaderVersion = "[2,)"
 license = "MIT"
 
 [[mods]]
-modId = "paleworldfx"
-displayName = "Pale World FX"
+modId = "palegardenfx"
+displayName = "Pale Garden FX"
 version = "${version}"
 displayURL = ""
 logoFile = "assets/icon.png"
@@ -12,15 +12,15 @@ authors = "VesMaybeVesper"
 description = '''A VFX mod focused on the Pale Garden!'''
 
 [[mixins]]
-config = "paleworldfx.mixins.json"
+config = "palegardenfx.mixins.json"
 
-[[dependencies.paleworldfx]]
+[[dependencies.palegardenfx]]
 modId = "neoforge"
 type = "required"
 versionRange = "[1,)"
 ordering = "NONE"
 side = "CLIENT"
 
-[[dependencies.paleworldfx]]
+[[dependencies.palegardenfx]]
 modId = "minecraft"
 type = "required"

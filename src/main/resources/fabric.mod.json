@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
-  "id": "paleworldfx",
-  "name": "Pale World Effects",
+  "id": "palegardenfx",
+  "name": "Pale Garden Effects",
   "version": "${version}",
   "authors": ["VesMaybeVesper"],
   "contact": {
@@ -12,20 +12,20 @@
   "icon": "assets/icon.png",
   "license": "MIT",
   "environment": "*",
-  "accessWidener": "paleworldfx.accesswidener",
+  "accessWidener": "palegardenfx.accesswidener",
   "entrypoints": {
     "main": [
-      "dev.vesper.paleworldfx.fabric.FabricEntrypoint"
+      "dev.vesper.palegardenfx.fabric.FabricEntrypoint"
     ],
     "client": [
-      "dev.vesper.paleworldfx.fabric.FabricClientEntrypoint"
+      "dev.vesper.palegardenfx.fabric.FabricClientEntrypoint"
     ],
     "modmenu": [
-      "dev.vesper.paleworldfx.fabric.ModMenuInit"
+      "dev.vesper.palegardenfx.fabric.ModMenuInit"
     ]
   },
   "mixins": [
-    "paleworldfx.mixins.json"
+    "palegardenfx.mixins.json"
   ],
   "depends": {
     "fabric-api": "*"
