@@ -1,1 +1,2 @@
-- Update for 26.1
+- [NeoForge 26.1.x] Resume using ESL's isShaders
+- Support for 26.2
