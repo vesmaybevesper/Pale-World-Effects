@@ -45,11 +45,7 @@ public class FogRendererMixin {
     @Inject(method = "updateBuffer(Lnet/minecraft/client/renderer/fog/FogData;)V", at = @At("HEAD"))
     private void updateBuffer(FogData fog, CallbackInfo ci) {
         if (entity instanceof Player player) {
-            //? fabric{
             if (!ESLModChecks.isShaders()) {
-                //?} neoforge{
-                /*if (!ModList.get().isLoaded("iris")) {
-                *///?}
                 BlockPos pos = player.getOnPos();
                 assert Minecraft.getInstance().level != null;
                 Holder<@NotNull Biome> biome = Minecraft.getInstance().level.getBiome(pos);
