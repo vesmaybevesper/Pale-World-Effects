@@ -11,7 +11,8 @@ import static dev.vesper.palegardenfx.common.Config.horrorMode;
 
 @Mixin(Blocks.class)
 public class BlocksMixin {
-    @ModifyExpressionValue(
+    //? <26.2 {
+    /*@ModifyExpressionValue(
             method = {"<clinit>"},
             at = {@At(
                     value = "INVOKE",
@@ -52,4 +53,47 @@ private static BlockBehaviour.Properties pottedOpenEyeblossom(BlockBehaviour.Pro
         return original.lightLevel((blockstate) -> 5);
     }
 }
+*///?} >=26.2{
+@ModifyExpressionValue(
+        method = {"<clinit>"},
+        at = {@At(
+                value = "INVOKE",
+                target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;"
+        )},
+        slice = {@Slice(
+                from = @At(
+                        value = "CONSTANT",
+                        args = {"BlockItemIds.OPEN_EYEBLOSSOM"}
+                )
+        )}
+)
+private static BlockBehaviour.Properties openEyeblossom(BlockBehaviour.Properties original) {
+    if (horrorMode) {
+        return original.lightLevel((blockstate) -> 3);
+    } else {
+        return original.lightLevel((blockstate) -> 5);
+    }
+}
+
+    @ModifyExpressionValue(
+            method = {"<clinit>"},
+            at = {@At(
+                    value = "INVOKE",
+                    target = "Lnet/minecraft/world/level/block/Blocks;flowerPotProperties()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;"
+            )},
+            slice = {@Slice(
+                    from = @At(
+                            value = "CONSTANT",
+                            args = {"BlockIds.POTTED_OPEN_EYEBLOSSOM"}
+                    )
+            )}
+    )
+    private static BlockBehaviour.Properties pottedOpenEyeblossom(BlockBehaviour.Properties original) {
+        if (horrorMode) {
+            return original.lightLevel((blockstate) -> 3);
+        } else {
+            return original.lightLevel((blockstate) -> 5);
+        }
+    }
+    //?}
 }
