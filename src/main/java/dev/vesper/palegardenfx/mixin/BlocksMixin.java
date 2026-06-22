@@ -3,6 +3,7 @@ package dev.vesper.palegardenfx.mixin;
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import org.objectweb.asm.Opcodes;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Slice;
@@ -62,9 +63,13 @@ private static BlockBehaviour.Properties pottedOpenEyeblossom(BlockBehaviour.Pro
         )},
         slice = {@Slice(
                 from = @At(
-                        value = "CONSTANT",
-                        args = {"BlockItemIds.OPEN_EYEBLOSSOM"}
-                )
+                        value = "FIELD",
+                        opcode = Opcodes.GETSTATIC,
+                        target = "Lnet/minecraft/references/BlockItemIds;OPEN_EYEBLOSSOM:Lnet/minecraft/references/BlockItemId;"),
+                to = @At(
+                        value = "FIELD",
+                        opcode = Opcodes.GETSTATIC,
+                        target = "Lnet/minecraft/references/BlockItemIds;CLOSED_EYEBLOSSOM:Lnet/minecraft/references/BlockItemId;")
         )}
 )
 private static BlockBehaviour.Properties openEyeblossom(BlockBehaviour.Properties original) {
@@ -83,9 +88,13 @@ private static BlockBehaviour.Properties openEyeblossom(BlockBehaviour.Propertie
             )},
             slice = {@Slice(
                     from = @At(
-                            value = "CONSTANT",
-                            args = {"BlockIds.POTTED_OPEN_EYEBLOSSOM"}
-                    )
+                            value = "FIELD",
+                            opcode = Opcodes.GETSTATIC,
+                            target = "Lnet/minecraft/references/BlockIds;POTTED_OPEN_EYEBLOSSOM:Lnet/minecraft/resources/ResourceKey;"),
+                    to = @At(
+                            value = "FIELD",
+                            opcode = Opcodes.GETSTATIC,
+                            target = "Lnet/minecraft/references/BlockIds;POTTED_CLOSED_EYEBLOSSOM:Lnet/minecraft/resources/ResourceKey;")
             )}
     )
     private static BlockBehaviour.Properties pottedOpenEyeblossom(BlockBehaviour.Properties original) {

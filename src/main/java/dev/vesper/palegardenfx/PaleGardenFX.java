@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 public class PaleGardenFX {
 
-    public static final String MOD_ID = "paleworldfx";
+    public static final String MOD_ID = "palegardenfx";
     public static final Logger LOG = LoggerFactory.getLogger(MOD_ID);
 
     public static void init() {
