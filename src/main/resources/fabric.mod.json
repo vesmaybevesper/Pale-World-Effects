@@ -28,6 +28,7 @@
     "palegardenfx.mixins.json"
   ],
   "depends": {
-    "fabric-api": "*"
+    "fabric-api": "*",
+    "eveningstarlib": ">=1.2.0"
   }
 }

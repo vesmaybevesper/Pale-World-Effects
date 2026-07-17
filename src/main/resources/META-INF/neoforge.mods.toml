@@ -24,3 +24,8 @@ side = "CLIENT"
 [[dependencies.palegardenfx]]
 modId = "minecraft"
 type = "required"
+
+[[dependancies.palegardenfx]]
+modId= "eveningstarlib"
+type = "required"
+versionRange = "[1.2.0,)"

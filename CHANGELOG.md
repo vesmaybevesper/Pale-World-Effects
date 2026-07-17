@@ -1,2 +1,1 @@
-- [NeoForge 26.1.x] Resume using ESL's isShaders
-- Support for 26.2
+- Use a new Serializer for the config
