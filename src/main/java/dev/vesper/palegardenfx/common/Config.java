@@ -7,6 +7,7 @@ import dev.isxander.yacl3.config.v2.api.autogen.Boolean;
 import dev.isxander.yacl3.config.v2.api.autogen.FloatField;
 import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import dev.isxander.yacl3.platform.YACLPlatform;
+import dev.vesper.eveningstarlib.common.YACLserializers.fastjson.FastJsonConfigSerializerBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.Identifier;
 
@@ -17,7 +18,7 @@ public class Config {
         if (HANDLER == null) {
             HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
                     .id(Identifier.fromNamespaceAndPath("paleworldfx", "config"))
-                    .serializer(configConfigClassHandler -> GsonConfigSerializerBuilder.create(configConfigClassHandler)
+                    .serializer(configConfigClassHandler -> FastJsonConfigSerializerBuilder.create(configConfigClassHandler)
                             .setPath(YACLPlatform.getConfigDir().resolve("paleworldfx.json"))
                             .build())
                     .build();

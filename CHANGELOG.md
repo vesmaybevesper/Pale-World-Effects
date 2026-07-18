@@ -1,1 +1,1 @@
-- Use a new Serializer for the config
+- Update a method I missed
