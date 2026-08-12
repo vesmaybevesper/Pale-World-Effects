@@ -29,6 +29,6 @@
   ],
   "depends": {
     "fabric-api": "*",
-    "eveningstarlib": ">=1.2.0"
+    "eveningstarlib": ">=1.2.1-alpha.3"
   }
 }

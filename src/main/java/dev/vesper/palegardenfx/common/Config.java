@@ -4,10 +4,10 @@ import dev.isxander.yacl3.config.v2.api.ConfigClassHandler;
 import dev.isxander.yacl3.config.v2.api.SerialEntry;
 import dev.isxander.yacl3.config.v2.api.autogen.AutoGen;
 import dev.isxander.yacl3.config.v2.api.autogen.Boolean;
+import dev.isxander.yacl3.config.v2.api.autogen.EnumCycler;
 import dev.isxander.yacl3.config.v2.api.autogen.FloatField;
-import dev.isxander.yacl3.config.v2.api.serializer.GsonConfigSerializerBuilder;
 import dev.isxander.yacl3.platform.YACLPlatform;
-import dev.vesper.eveningstarlib.common.YACLserializers.fastjson.FastJsonConfigSerializerBuilder;
+import dev.vesper.eveningstarlib.common.serializers.fastjson.FastJsonConfigSerializerBuilder;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.resources.Identifier;
 
@@ -31,10 +31,17 @@ public class Config {
         return getHandler().generateGui().generateScreen(parent);
     }
 
+    public enum FogType {VANILLA, SHADER, OFF};
+
     @AutoGen(category = "Main")
     @Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
     @SerialEntry
     public static boolean horrorMode = false;
+
+    @AutoGen(category = "Main")
+    @EnumCycler
+    @SerialEntry
+    public static FogType fogType = FogType.VANILLA;
 
     @AutoGen(category = "Main")
     @FloatField
@@ -50,10 +57,4 @@ public class Config {
     @FloatField
     @SerialEntry
     public static float fogTransparency = 0.7F;
-
-    // Unused and I don't remember what it was supposed to be for
-    /*@AutoGen(category = "Fog Config")
-    @FloatField
-    @SerialEntry
-    public static float fogFade = 0.002F;*/
 }
