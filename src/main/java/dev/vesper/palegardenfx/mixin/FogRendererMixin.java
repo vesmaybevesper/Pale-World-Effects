@@ -42,30 +42,40 @@ public class FogRendererMixin {
 
 	@Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/fog/environment/FogEnvironment;setupFog(Lnet/minecraft/client/renderer/fog/FogData;Lnet/minecraft/client/Camera;Lnet/minecraft/client/multiplayer/ClientLevel;FLnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
 	// the worlds longest version replace annotation
-	//~ if <26.1.2 'Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment' -> 'Camera camera, int i, DeltaTracker deltaTracker, float f, ClientLevel clientLevel, CallbackInfoReturnable<Vector4f> cir, float g, Vector4f vector4f, float h, FogType fogType, Entity entity, FogData fogData, Iterator var12, FogEnvironment fogEnvironment'
+	//~ if <26.1.2 'Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment' -> 'Camera camera, int i, DeltaTracker deltaTracker, float f, ClientLevel clientLevel, CallbackInfoReturnable<Vector4f> cir, float g, Vector4f color, float h, FogType fogType, Entity entity, FogData fog, Iterator var12, FogEnvironment fogEnvironment'
 	private static void onFogStart(Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment) {
 		capturedEntity = entity;
 		//~ if <26.1.2 'renderDistanceInChunks' -> 'i'
 		renderBlocks = renderDistanceInChunks * 16;
-		//? 1.21.11 {
-		/*color = vector4f;
-		capturedFog = fogData;
+
+		//? 1.21.11{
+		/*if (capturedEntity instanceof Player player) {
+			if (Config.fogType == Config.FogType.VANILLA) {
+				if (Config.gamemodeFog){
+					if (!player.isCreative() && !player.isSpectator()){
+						FogCode.setFogBuffer(h, fog, fogAlphaBase, player, color);
+					}
+				} else {
+					FogCode.setFogBuffer(h, fog, fogAlphaBase, player, color);
+				}
+			} else if (Config.fogType == Config.FogType.SHADER) {
+				// If set to use a shader just cancel the whole thing, this type is intended for a future custom fog shader option but rn we can treat it as a "hey im using iris" option I guess
+			}
+		}
 		*///?}
 	}
-// if fogType is set to off we do nothing and vanilla fog takes over
-	//~ if 1.21.11 'updateBuffer(Lnet/minecraft/client/renderer/fog/FogData;)V' -> 'updateBuffer(Ljava/nio/ByteBuffer;ILorg/joml/Vector4f;FFFFFF)V'
+
+	// if fogType is set to off we do nothing and vanilla fog takes over
+	//? if >=26.1.2 {
 	@Inject(method = "updateBuffer(Lnet/minecraft/client/renderer/fog/FogData;)V", at = @At("HEAD"), cancellable = true)
-	//~ if 1.21.11 'FogData fog, CallbackInfo ci' -> 'ByteBuffer byteBuffer, int i, Vector4f vector4f, float f, float g, float h, float j, float k, float l, CallbackInfo ci'
 	private void updateBuffer(FogData fog, CallbackInfo ci) {
 		if (capturedEntity instanceof Player player) {
 			if (Config.fogType == Config.FogType.VANILLA) {
 				if (Config.gamemodeFog){
 					if (!player.isCreative() && !player.isSpectator()){
-						//~ if 1.21.11 'renderBlocks, fog, fogAlphaBase, player' -> 'renderBlocks, capturedFog, fogAlphaBase, player, color'
 						FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
 					}
 				} else {
-					//~ if 1.21.11 'renderBlocks, fog, fogAlphaBase, player' -> 'renderBlocks, capturedFog, fogAlphaBase, player, color'
 					FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
 				}
 			} else if (Config.fogType == Config.FogType.SHADER) {
@@ -74,4 +84,5 @@ public class FogRendererMixin {
 			}
 		}
 	}
+	//?}
 }
