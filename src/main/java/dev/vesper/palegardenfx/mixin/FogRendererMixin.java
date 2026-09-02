@@ -2,6 +2,7 @@ package dev.vesper.palegardenfx.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
+import dev.vesper.eveningstarlib.common.ESLModChecks;
 import dev.vesper.palegardenfx.common.FogCode;
 import dev.vesper.palegardenfx.common.Config;
 import net.minecraft.client.Camera;
@@ -69,18 +70,20 @@ public class FogRendererMixin {
 	//? if >=26.1.2 {
 	@Inject(method = "updateBuffer(Lnet/minecraft/client/renderer/fog/FogData;)V", at = @At("HEAD"), cancellable = true)
 	private void updateBuffer(FogData fog, CallbackInfo ci) {
-		if (capturedEntity instanceof Player player) {
-			if (Config.fogType == Config.FogType.VANILLA) {
-				if (Config.gamemodeFog){
-					if (!player.isCreative() && !player.isSpectator()){
+		if (!ESLModChecks.isShaders()) {
+			if (capturedEntity instanceof Player player) {
+				if (Config.fogType == Config.FogType.VANILLA) {
+					if (Config.gamemodeFog){
+						if (!player.isCreative() && !player.isSpectator()){
+							FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
+						}
+					} else {
 						FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
 					}
-				} else {
-					FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
+				} else if (Config.fogType == Config.FogType.SHADER) {
+					// If set to use a shader just cancel the whole thing, this type is intended for a future custom fog shader option but rn we can treat it as a "hey im using iris" option I guess
+					ci.cancel();
 				}
-			} else if (Config.fogType == Config.FogType.SHADER) {
-				// If set to use a shader just cancel the whole thing, this type is intended for a future custom fog shader option but rn we can treat it as a "hey im using iris" option I guess
-				ci.cancel();
 			}
 		}
 	}
