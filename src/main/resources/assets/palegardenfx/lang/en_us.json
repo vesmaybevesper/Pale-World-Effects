@@ -15,7 +15,7 @@
   "yacl3.config.palegardenfx:config.fogEnd.tooltip": "Sets where the fog ends",
   "yacl3.config.palegardenfx:config.fogTransparency": "Fog Transparency",
   "yacl3.config.palegardenfx:config.fogTransparency.tooltip": "Sets how transparent the fog is",
-  "yacl3.config.palegardenfx:config.FogType.VANILLA": "Vanilla",
-  "yacl3.config.palegardenfx:config.FogType.SHADER": "Shader",
-  "yacl3.config.palegardenfx:config.FogType.OFF": "Off"
+  "yacl3.config.enum.FogType.VANILLA": "Vanilla",
+  "yacl3.config.enum.FogType.SHADER": "Shader",
+  "yacl3.config.enum.FogType.OFF": "Off"
 }
