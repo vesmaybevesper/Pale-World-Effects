@@ -10,16 +10,18 @@ import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
 import org.joml.Vector4f;
 
-public class FogCode {
-	public static float fogFade = 0.0F;
+import static dev.vesper.palegardenfx.common.util.FogStateManager.fogFade;
 
-	//~ if 1.21.11 'float renderDistanceBlocks, FogData fog, float fogAlphaBase, Player player' -> 'float renderDistanceBlocks, FogData fog, float fogAlphaBase, Player player, Vector4f color'
-	public static void setFogBuffer(float renderDistanceBlocks, FogData fog, float fogAlphaBase, Player player) {
+public class FogCode {
+
+	//~ if 1.21.11 'float renderBlocks, FogData fog, float fogAlphaBase, Player player' -> 'float renderBlocks, FogData fog, float fogAlphaBase, Player player, Vector4f color'
+	public static void setFogBuffer(float renderBlocks, FogData fog, float fogAlphaBase, Player player) {
 		if (Config.fogType == Config.FogType.VANILLA) {
 			BlockPos pos = player.getOnPos();
 			assert Minecraft.getInstance().level != null;
 			Holder<Biome> biome = Minecraft.getInstance().level.getBiome(pos);
 			if (!biome.is(Biomes.PALE_GARDEN)) {
+				if (fogFade != 0.0f) fogFade = Math.min(fogFade - 0.002F, 0.0F);
 				return;
 			}
 
@@ -37,12 +39,12 @@ public class FogCode {
 			}
 
 			if (Config.horrorMode) {
-				fog.environmentalStart = renderDistanceBlocks * 0.8F + fogFade * (0.1F - renderDistanceBlocks * 0.8F);
-				fog.environmentalEnd = renderDistanceBlocks + fogFade * (8.0F - renderDistanceBlocks);
+				fog.environmentalStart = renderBlocks * 0.8F + fogFade * (0.1F - renderBlocks * 0.8F);
+				fog.environmentalEnd = renderBlocks + fogFade * (8.0F - renderBlocks);
 				fogAlphaBase = 0.99F;
 			} else {
-				fog.environmentalStart = renderDistanceBlocks * 0.8F + fogFade * (Config.fogStart - renderDistanceBlocks * 0.8F);
-				fog.environmentalEnd = renderDistanceBlocks + fogFade * (Config.fogEnd - renderDistanceBlocks);
+				fog.environmentalStart = renderBlocks * 0.8F + fogFade * (Config.fogStart - renderBlocks * 0.8F);
+				fog.environmentalEnd = renderBlocks + fogFade * (Config.fogEnd - renderBlocks);
 				fogAlphaBase = Config.fogTransparency;
 			}
 
