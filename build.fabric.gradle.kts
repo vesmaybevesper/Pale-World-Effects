@@ -29,7 +29,17 @@ platform {
 		required("fabricloader") {
 			fabricLikeVersionRange = ">=${prop("deps.fabric-loader")}"
 		}
-		optional("modmenu") {}
+		required("yet_another_config_lib_v3"){
+			slug("yacl")
+			fabricLikeVersionRange = ">=${prop("deps.yet_another_config_lib_v3")}"
+		}
+		required("eveningstarlib"){
+			slug("eveningstarlib")
+			fabricLikeVersionRange = ">=${prop("deps.eveningstarlib")}"
+		}
+		optional("modmenu") {
+			slug("modmenu")
+		}
 	}
 }
 

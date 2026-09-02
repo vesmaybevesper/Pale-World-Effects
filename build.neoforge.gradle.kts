@@ -22,6 +22,14 @@ platform {
 		required("neoforge") {
 			forgeLikeVersionRange.set("[1,)")
 		}
+		required("yet_another_config_lib_v3"){
+			slug("yacl")
+			forgeLikeVersionRange = ">=${prop("deps.yet_another_config_lib_v3")}"
+		}
+		required("eveningstarlib"){
+			slug("eveningstarlib")
+			fabricLikeVersionRange = ">=${prop("deps.eveningstarlib")}"
+		}
 	}
 }
 
