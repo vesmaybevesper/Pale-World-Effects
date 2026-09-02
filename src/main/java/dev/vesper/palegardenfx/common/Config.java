@@ -17,7 +17,7 @@ public class Config {
 
 	public static ConfigClassHandler<Config> getHandler() {
 		if (HANDLER == null) {
-			HANDLER = ConfigClassHandler.<Config>createBuilder(Config.class)
+			HANDLER = ConfigClassHandler.createBuilder(Config.class)
 					.id(Identifier.fromNamespaceAndPath("palegardenfx", "config"))
 					.serializer(configConfigClassHandler -> FastJsonConfigSerializerBuilder.create(configConfigClassHandler)
 							.setPath(YACLPlatform.getConfigDir().resolve("palegardenfx.json"))
@@ -32,7 +32,7 @@ public class Config {
 		return getHandler().generateGui().generateScreen(parent);
 	}
 
-	public enum FogType {VANILLA, SHADER, OFF};
+	public enum FogType {VANILLA, SHADER, OFF}
 
 	@AutoGen(category = "Main")
 	@Boolean(formatter = Boolean.Formatter.ON_OFF, colored = true)
