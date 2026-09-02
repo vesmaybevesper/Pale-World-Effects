@@ -1,87 +1,77 @@
 package dev.vesper.palegardenfx.mixin;
 
 import com.llamalad7.mixinextras.sugar.Local;
-import dev.vesper.eveningstarlib.common.ESLModChecks;
+import dev.kikugie.fletching_table.annotation.MixinEnvironment;
+import dev.vesper.palegardenfx.common.FogCode;
 import dev.vesper.palegardenfx.common.Config;
 import net.minecraft.client.Camera;
 import net.minecraft.client.DeltaTracker;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.fog.FogData;
 import net.minecraft.client.renderer.fog.FogRenderer;
-import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
+import net.minecraft.client.renderer.fog.environment.FogEnvironment;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
-import net.minecraft.world.level.levelgen.Heightmap;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.world.level.material.FogType;
+import org.joml.Vector4f;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-import static dev.vesper.palegardenfx.common.FogStateManager.fogFade;
+import java.nio.ByteBuffer;
+import java.util.Iterator;
 
 @Mixin(FogRenderer.class)
+@MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 public class FogRendererMixin {
 
-    private static float fogAlphaBase;
-    private static Entity entity;
-    private static float renderDistanceBlocks;
+	@Unique
+	private static float fogAlphaBase;
+	@Unique
+	private static Entity capturedEntity;
+	@Unique
+	private static float renderBlocks;
+	@Unique
+	private static Vector4f color;
+	@Unique
+	private static FogData capturedFog;
 
-    @Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/fog/environment/FogEnvironment;setupFog(Lnet/minecraft/client/renderer/fog/FogData;Lnet/minecraft/client/Camera;Lnet/minecraft/client/multiplayer/ClientLevel;FLnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
-    private static void onFogStart(Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, @Local(name = "entity") Entity localEntity) {
-        entity = localEntity;
-        renderDistanceBlocks = renderDistanceInChunks * 16;
-    }
-
-    @Inject(method = "updateBuffer(Lnet/minecraft/client/renderer/fog/FogData;)V", at = @At("HEAD"), cancellable = true)
-    private void updateBuffer(FogData fog, CallbackInfo ci) {
-        if (entity instanceof Player player) {
-            if (!ESLModChecks.isShaders()) {
-                if (Config.fogType == Config.FogType.VANILLA){
-                    BlockPos pos = player.getOnPos();
-                    assert Minecraft.getInstance().level != null;
-                    Holder<@NotNull Biome> biome = Minecraft.getInstance().level.getBiome(pos);
-                    if (!biome.is(Biomes.PALE_GARDEN)) {return;}
-
-                    int topY = Minecraft.getInstance().level.getHeight(Heightmap.Types.WORLD_SURFACE, pos.getX(), pos.getZ());
-
-                    if (biome.is(Biomes.PALE_GARDEN)) {
-                        if (player.getY() <= (double)(topY + 15) && player.getY() >= 15.0D && !player.isCreative() && !player.isSpectator()) {
-                            fogFade = Math.min(fogFade + 0.002F, 1.0F);
-                        } else {
-                            if (!(fogFade > 0.0F)) {
-                                return;
-                            }
-                            fogFade = Math.min(fogFade - 0.002F, 0.0F);
-                        }
-                    }
-
-                    if (Config.horrorMode) {
-                        fog.environmentalStart = renderDistanceBlocks * 0.8F + fogFade * (0.1F - renderDistanceBlocks * 0.8F);
-                        fog.environmentalEnd = renderDistanceBlocks + fogFade * (8.0F - renderDistanceBlocks);
-                        fogAlphaBase = 0.99F;
-                    } else {
-                        fog.environmentalStart = renderDistanceBlocks * 0.8F + fogFade * (Config.fogStart - renderDistanceBlocks * 0.8F);
-                        fog.environmentalEnd = renderDistanceBlocks + fogFade * (Config.fogEnd - renderDistanceBlocks);
-                        fogAlphaBase = Config.fogTransparency;
-                    }
-
-                    fog.skyEnd = fog.environmentalEnd;
-                    fog.cloudEnd = fog.environmentalEnd;
-                    fog.color.x += fogFade * (0.8F - fog.color.x);
-                    fog.color.y += fogFade * (0.8F - fog.color.y);
-                    fog.color.z += fogFade * (0.85F - fog.color.z);
-                    fog.color.w += fogFade * (fogAlphaBase - fog.color.w);
-                } else if (Config.fogType == Config.FogType.SHADER) {
-                    ci.cancel();
-                }
-            }
-        }
-    }
+	@Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/fog/environment/FogEnvironment;setupFog(Lnet/minecraft/client/renderer/fog/FogData;Lnet/minecraft/client/Camera;Lnet/minecraft/client/multiplayer/ClientLevel;FLnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
+	// the worlds longest version replace annotation
+	//~ if <26.1.2 'Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment' -> 'Camera camera, int i, DeltaTracker deltaTracker, float f, ClientLevel clientLevel, CallbackInfoReturnable<Vector4f> cir, float g, Vector4f vector4f, float h, FogType fogType, Entity entity, FogData fogData, Iterator var12, FogEnvironment fogEnvironment'
+	private static void onFogStart(Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment) {
+		capturedEntity = entity;
+		//~ if <26.1.2 'renderDistanceInChunks' -> 'i'
+		renderBlocks = renderDistanceInChunks * 16;
+		//? 1.21.11 {
+		/*color = vector4f;
+		capturedFog = fogData;
+		*///?}
+	}
+// if fogType is set to off we do nothing and vanilla fog takes over
+	//~ if 1.21.11 'updateBuffer(Lnet/minecraft/client/renderer/fog/FogData;)V' -> 'updateBuffer(Ljava/nio/ByteBuffer;ILorg/joml/Vector4f;FFFFFF)V'
+	@Inject(method = "updateBuffer(Lnet/minecraft/client/renderer/fog/FogData;)V", at = @At("HEAD"), cancellable = true)
+	//~ if 1.21.11 'FogData fog, CallbackInfo ci' -> 'ByteBuffer byteBuffer, int i, Vector4f vector4f, float f, float g, float h, float j, float k, float l, CallbackInfo ci'
+	private void updateBuffer(FogData fog, CallbackInfo ci) {
+		if (capturedEntity instanceof Player player) {
+			if (Config.fogType == Config.FogType.VANILLA) {
+				if (Config.gamemodeFog){
+					if (!player.isCreative() && !player.isSpectator()){
+						//~ if 1.21.11 'renderBlocks, fog, fogAlphaBase, player' -> 'renderBlocks, capturedFog, fogAlphaBase, player, color'
+						FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
+					}
+				} else {
+					//~ if 1.21.11 'renderBlocks, fog, fogAlphaBase, player' -> 'renderBlocks, capturedFog, fogAlphaBase, player, color'
+					FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
+				}
+			} else if (Config.fogType == Config.FogType.SHADER) {
+				// If set to use a shader just cancel the whole thing, this type is intended for a future custom fog shader option but rn we can treat it as a "hey im using iris" option I guess
+				ci.cancel();
+			}
+		}
+	}
 }

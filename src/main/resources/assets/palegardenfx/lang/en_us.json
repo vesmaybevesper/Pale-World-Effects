@@ -1,0 +1,21 @@
+{
+  "yacl3.config.palegardenfx:config.category.Main": "Pale World Config",
+  "yacl3.config.palegardenfx:config.horrorMode": "Horror Mode",
+  "yacl3.config.palegardenfx:config.horrorMode.tooltip": "Toggles Horror Mode",
+  "yacl3.config.palegardenfx:config.glowingEye": "Glowing Eyeblossoms",
+  "yacl3.config.palegardenfx:config.fogType": "Fog Type",
+  "yacl3.config.palegardenfx:config.gamemodeFog": "Fog Checks Gamemode",
+  "yacl3.config.palegardenfx:config.gamemodeFog.tooltip": "Should fog rendering be canceled in non-Survival gamemodes",
+  "yacl3.config.palegardenfx:config.fogType.tooltip": "Sets fog type",
+  "yacl3.config.palegardenfx:config.fogType.desc": "Currently only Vanilla does anything",
+  "yacl3.config.palegardenfx:config.glowingEye.tooltip": "Should Eyeblossoms glow",
+  "yacl3.config.palegardenfx:config.fogStart": "Fog Start",
+  "yacl3.config.palegardenfx:config.fogStart.tooltip": "Sets where the fog begins",
+  "yacl3.config.palegardenfx:config.fogEnd": "Fog End",
+  "yacl3.config.palegardenfx:config.fogEnd.tooltip": "Sets where the fog ends",
+  "yacl3.config.palegardenfx:config.fogTransparency": "Fog Transparency",
+  "yacl3.config.palegardenfx:config.fogTransparency.tooltip": "Sets how transparent the fog is",
+  "yacl3.config.palegardenfx:config.FogType.VANILLA": "Vanilla",
+  "yacl3.config.palegardenfx:config.FogType.SHADER": "Shader",
+  "yacl3.config.palegardenfx:config.FogType.OFF": "Off"
+}

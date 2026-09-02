@@ -1,6 +1,8 @@
 package dev.vesper.palegardenfx.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import dev.kikugie.fletching_table.annotation.MixinEnvironment;
+import dev.vesper.palegardenfx.common.Config;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.objectweb.asm.Opcodes;
@@ -11,8 +13,9 @@ import org.spongepowered.asm.mixin.injection.Slice;
 import static dev.vesper.palegardenfx.common.Config.horrorMode;
 
 @Mixin(Blocks.class)
+@MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 public class BlocksMixin {
-    //? <26.2 {
+	//? <26.2 {
     /*@ModifyExpressionValue(
             method = {"<clinit>"},
             at = {@At(
@@ -27,12 +30,15 @@ public class BlocksMixin {
             )}
     )
     private static BlockBehaviour.Properties openEyeblossom(BlockBehaviour.Properties original) {
-                if (horrorMode) {
-                    return original.lightLevel((blockstate) -> 3);
-                } else {
-                    return original.lightLevel((blockstate) -> 5);
-                }
-    }
+		if (Config.glowingEye) {
+			if (horrorMode) {
+				return original.lightLevel((blockstate) -> 3);
+			} else {
+				return original.lightLevel((blockstate) -> 5);
+			}
+	    }
+		return original;
+	}
 
 @ModifyExpressionValue(
         method = {"<clinit>"},
@@ -48,61 +54,70 @@ public class BlocksMixin {
         )}
 )
 private static BlockBehaviour.Properties pottedOpenEyeblossom(BlockBehaviour.Properties original) {
-    if (horrorMode) {
-        return original.lightLevel((blockstate) -> 3);
-    } else {
-        return original.lightLevel((blockstate) -> 5);
-    }
+	if (Config.glowingEye) {
+		if (horrorMode) {
+			return original.lightLevel((blockstate) -> 3);
+		} else {
+			return original.lightLevel((blockstate) -> 5);
+		}
+	}
+	return original;
 }
 *///?} >=26.2{
-@ModifyExpressionValue(
-        method = {"<clinit>"},
-        at = {@At(
-                value = "INVOKE",
-                target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;"
-        )},
-        slice = {@Slice(
-                from = @At(
-                        value = "FIELD",
-                        opcode = Opcodes.GETSTATIC,
-                        target = "Lnet/minecraft/references/BlockItemIds;OPEN_EYEBLOSSOM:Lnet/minecraft/references/BlockItemId;"),
-                to = @At(
-                        value = "FIELD",
-                        opcode = Opcodes.GETSTATIC,
-                        target = "Lnet/minecraft/references/BlockItemIds;CLOSED_EYEBLOSSOM:Lnet/minecraft/references/BlockItemId;")
-        )}
-)
-private static BlockBehaviour.Properties openEyeblossom(BlockBehaviour.Properties original) {
-    if (horrorMode) {
-        return original.lightLevel((blockstate) -> 3);
-    } else {
-        return original.lightLevel((blockstate) -> 5);
-    }
-}
+	@ModifyExpressionValue(
+			method = {"<clinit>"},
+			at = {@At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;of()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;"
+			)},
+			slice = {@Slice(
+					from = @At(
+							value = "FIELD",
+							opcode = Opcodes.GETSTATIC,
+							target = "Lnet/minecraft/references/BlockItemIds;OPEN_EYEBLOSSOM:Lnet/minecraft/references/BlockItemId;"),
+					to = @At(
+							value = "FIELD",
+							opcode = Opcodes.GETSTATIC,
+							target = "Lnet/minecraft/references/BlockItemIds;CLOSED_EYEBLOSSOM:Lnet/minecraft/references/BlockItemId;")
+			)}
+	)
+	private static BlockBehaviour.Properties openEyeblossom(BlockBehaviour.Properties original) {
+		if (Config.glowingEye) {
+			if (horrorMode) {
+				return original.lightLevel((blockstate) -> 3);
+			} else {
+				return original.lightLevel((blockstate) -> 5);
+			}
+		}
+		return original;
+	}
 
-    @ModifyExpressionValue(
-            method = {"<clinit>"},
-            at = {@At(
-                    value = "INVOKE",
-                    target = "Lnet/minecraft/world/level/block/Blocks;flowerPotProperties()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;"
-            )},
-            slice = {@Slice(
-                    from = @At(
-                            value = "FIELD",
-                            opcode = Opcodes.GETSTATIC,
-                            target = "Lnet/minecraft/references/BlockIds;POTTED_OPEN_EYEBLOSSOM:Lnet/minecraft/resources/ResourceKey;"),
-                    to = @At(
-                            value = "FIELD",
-                            opcode = Opcodes.GETSTATIC,
-                            target = "Lnet/minecraft/references/BlockIds;POTTED_CLOSED_EYEBLOSSOM:Lnet/minecraft/resources/ResourceKey;")
-            )}
-    )
-    private static BlockBehaviour.Properties pottedOpenEyeblossom(BlockBehaviour.Properties original) {
-        if (horrorMode) {
-            return original.lightLevel((blockstate) -> 3);
-        } else {
-            return original.lightLevel((blockstate) -> 5);
-        }
-    }
-    //?}
+	@ModifyExpressionValue(
+			method = {"<clinit>"},
+			at = {@At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/world/level/block/Blocks;flowerPotProperties()Lnet/minecraft/world/level/block/state/BlockBehaviour$Properties;"
+			)},
+			slice = {@Slice(
+					from = @At(
+							value = "FIELD",
+							opcode = Opcodes.GETSTATIC,
+							target = "Lnet/minecraft/references/BlockIds;POTTED_OPEN_EYEBLOSSOM:Lnet/minecraft/resources/ResourceKey;"),
+					to = @At(
+							value = "FIELD",
+							opcode = Opcodes.GETSTATIC,
+							target = "Lnet/minecraft/references/BlockIds;POTTED_CLOSED_EYEBLOSSOM:Lnet/minecraft/resources/ResourceKey;")
+			)}
+	)
+	private static BlockBehaviour.Properties pottedOpenEyeblossom(BlockBehaviour.Properties original) {
+		if (Config.glowingEye) {
+			if (horrorMode) {
+				return original.lightLevel((blockstate) -> 3);
+			} else {
+				return original.lightLevel((blockstate) -> 5);
+			}
+		}
+		return original;
+	}
+	//?}
 }

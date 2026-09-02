@@ -1,126 +1,91 @@
-@file:Suppress("UnstableApiUsage")
-
 plugins {
-    id("net.fabricmc.fabric-loom")
-    id("dev.kikugie.postprocess.jsonlang")
-    id("me.modmuss50.mod-publish-plugin")
+	id("mod-platform")
+	id("dev.kikugie.loom-back-compat")
 }
 
-tasks.named<ProcessResources>("processResources") {
-    fun prop(name: String) = project.property(name) as String
+stonecutter {
+	val (version, loader) = current.project.split('-', limit = 2)
+	properties.tags(version, loader)
 
-    val props = HashMap<String, String>().apply {
-        this["version"] = prop("mod.version")
-        this["minecraft"] = prop("deps.minecraft")
-    }
-
-    filesMatching(listOf("fabric.mod.json", "META-INF/neoforge.mods.toml", "META-INF/mods.toml")) {
-        expand(props)
-    }
+	replacements.string(current.parsed >= "1.21.11") {
+		replace("ResourceLocation", "Identifier")
+		replace("location()", "identifier()")
+	}
+	replacements.string(current.parsed >= "26.1.2") {
+		replace("FabricDataOutput", "FabricPackOutput")
+	}
 }
 
-
-tasks.named("processResources").configure { dependsOn("stonecutterGenerate") }
-tasks.named("postProcessMainResources").configure { dependsOn("stonecutterGenerate") }
-
-version = "${property("mod.version")}+${property("deps.minecraft")}-fabric"
-base.archivesName = property("mod.id") as String
+platform {
+	loader = "fabric"
+	dependencies {
+		required("minecraft") {
+			fabricLikeVersionRange = prop("deps.minecraft")
+		}
+		required("fabric-api") {
+			slug("fabric-api")
+			fabricLikeVersionRange = ">=${prop("deps.fabric-api")}"
+		}
+		required("fabricloader") {
+			fabricLikeVersionRange = ">=${prop("deps.fabric-loader")}"
+		}
+		optional("modmenu") {}
+	}
+}
 
 loom {
-    accessWidenerPath = rootProject.file("src/main/resources/${property("mod.id")}.accesswidener")
-}
-
-jsonlang {
-    languageDirectories = listOf("assets/${property("mod.id")}/lang")
-    prettyPrint = true
-}
-
-repositories {
-    mavenLocal()
-    maven("https://maven.isxander.dev/releases") {
-        name = "Xander Maven"
-    }
-    maven (url = "https://maven.terraformersmc.com/")
-    maven (url = "https://api.modrinth.com/maven")
-    maven("https://maven.nucleoid.xyz/") { name = "Nucleoid" }
-}
-
-dependencies {
-    minecraft("com.mojang:minecraft:${property("deps.minecraft")}")
-    implementation("net.fabricmc:fabric-loader:${property("deps.fabric-loader")}")
-    implementation("net.fabricmc.fabric-api:fabric-api:${property("deps.fabric-api")}")
-    implementation("dev.isxander:yet-another-config-lib:${property("deps.yacl")}")
-    implementation("com.terraformersmc:modmenu:${property("deps.modmenu")}")
-    implementation("maven.modrinth:eveningstarlib:${property("deps.esl")}")
-
-    val modules = listOf("transitive-access-wideners-v1", "registry-sync-v0", "resource-loader-v0")
-    for (it in modules) implementation(fabricApi.module("fabric-$it", property("deps.fabric-api") as String))
+	accessWidenerPath = rootProject.file("src/main/resources/aw/${sc.current.version}.accesswidener")
+	runs.named("client") {
+		client()
+		ideConfigGenerated(true)
+		runDir = "run/"
+		environment = "client"
+		programArgs("--username=Dev")
+		configName = "Fabric Client"
+	}
+	runs.named("server") {
+		server()
+		ideConfigGenerated(true)
+		runDir = "run/"
+		environment = "server"
+		configName = "Fabric Server"
+	}
 }
 
 fabricApi {
-    configureDataGeneration() {
-        outputDirectory = file("$rootDir/src/main/generated")
-        client = true
-    }
+	configureDataGeneration {
+		outputDirectory = file("${rootDir}/versions/datagen/${sc.current.version.split("-")[0]}/src/main/generated")
+		client = true
+	}
 }
 
-tasks {
-    processResources {
-        exclude("**/neoforge.mods.toml", "**/mods.toml")
-    }
-
-    register<Copy>("buildAndCollect") {
-        group = "build"
-        into(rootProject.layout.buildDirectory.file("libs/${project.property("mod.version")}"))
-        dependsOn("build")
-    }
+repositories {
+	mavenCentral()
+	strictMaven("https://maven.terraformersmc.com/", "com.terraformersmc") { name = "TerraformersMC" }
+	strictMaven("https://api.modrinth.com/maven", "maven.modrinth") { name = "Modrinth" }
+	maven("https://maven.isxander.dev/releases")
 }
 
-java {
-    withSourcesJar()
-    val javaCompat = JavaVersion.VERSION_25
-    sourceCompatibility = javaCompat
-    targetCompatibility = javaCompat
+configurations.all {
+	resolutionStrategy {
+		force("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
+	}
 }
 
-val additionalVersionsStr = findProperty("publish.additionalVersions") as String?
-val additionalVersions: List<String> = additionalVersionsStr
-    ?.split(",")
-    ?.map { it.trim() }
-    ?.filter { it.isNotEmpty() }
-    ?: emptyList()
-
-publishMods {
-    file = tasks.jar.map { it.archiveFile.get() }
-    //additionalFiles.from(tasks.remapSourcesJar.map { it.archiveFile.get() })
-
-    type = STABLE
-    displayName = "${property("mod.name")} ${property("mod.version")} for ${stonecutter.current.version} Fabric"
-    version = "${property("mod.version")}+${property("deps.minecraft")}-fabric"
-    changelog = provider { rootProject.file("CHANGELOG.md").readText() }
-    modLoaders.add("fabric")
-
-    modrinth {
-        projectId = property("publish.modrinth") as String
-        accessToken = env.MODRINTH_API_KEY.orNull()
-        environment = CLIENT_ONLY
-        minecraftVersions.add(stonecutter.current.version)
-        minecraftVersions.addAll(additionalVersions)
-        requires("fabric-api")
-        requires("yacl")
-        requires("eveningstarlib")
-        optional("modmenu")
-    }
-
-    curseforge {
-        projectId = property("publish.curseforge") as String
-        accessToken = env.CURSEFORGE_API_KEY.orNull()
-        client = true
-        minecraftVersions.add(stonecutter.current.version)
-        minecraftVersions.addAll(additionalVersions)
-        requires("fabric-api")
-        requires("yacl")
-        requires("eveningstarlib")
-        optional("modmenu")
-    }
+dependencies {
+	minecraft("com.mojang:minecraft:${prop("deps.minecraft")}")
+	if (sc.current.parsed < "26") {
+		mappings(loom.layered {
+			officialMojangMappings()
+			if (hasProperty("deps.parchment"))
+				parchment("org.parchmentmc.data:parchment-${prop("deps.parchment")}@zip")
+		})
+	}
+	modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
+	// implementation(libs.moulberry.mixinconstraints)
+	// include(libs.moulberry.mixinconstraints)
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric-api")}")
+	modImplementation("dev.isxander:yet-another-config-lib:${prop("deps.yet_another_config_lib_v3")}")
+	modImplementation("maven.modrinth:eveningstarlib:${prop("deps.eveningstarlib")}")
+	modCompileOnly("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
 }
