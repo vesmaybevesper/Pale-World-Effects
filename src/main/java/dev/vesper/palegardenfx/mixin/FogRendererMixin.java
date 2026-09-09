@@ -1,5 +1,6 @@
 package dev.vesper.palegardenfx.mixin;
 
+import com.llamalad7.mixinextras.sugar.Local;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import dev.vesper.eveningstarlib.common.ESLModChecks;
 import dev.vesper.palegardenfx.common.FogCode;
@@ -51,7 +52,7 @@ public class FogRendererMixin {
 	@Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/fog/environment/FogEnvironment;setupFog(Lnet/minecraft/client/renderer/fog/FogData;Lnet/minecraft/client/Camera;Lnet/minecraft/client/multiplayer/ClientLevel;FLnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
 	// the worlds longest version replace annotation
 
-	//~ if 1.21.11 'Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment' -> 'Camera camera, int i, DeltaTracker deltaTracker, float f, ClientLevel clientLevel, CallbackInfoReturnable<Vector4f> cir, float g, Vector4f color, float h, FogType fogType, Entity entity, FogData fog, Iterator var12, FogEnvironment fogEnvironment'
+	//~ if 1.21.11 'Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment' -> 'Camera camera, int i, DeltaTracker deltaTracker, float f, ClientLevel clientLevel, CallbackInfoReturnable<Vector4f> cir, @Local Entity entity, @Local Vector4f color, @Local FogData fog'
 	private static void onFogStart(Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment) {
 		capturedEntity = entity;
 		//~ if <26.1.2 'renderDistanceInChunks' -> 'i'
