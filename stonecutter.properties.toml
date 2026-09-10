@@ -23,21 +23,21 @@ name = "VesMaybeVesper"
 url = "https://github.com/vesmaybevesper"
 
 [fabric]
-deps.fabric-loader = "0.19.3"
+deps.fabric-loader = "0.19.5"
 
 [fabric."1.21.11"]
 deps.minecraft = "1.21.11"
 deps.fabric-api = "0.141.6+1.21.11"
 deps.modmenu = "17.0.1-beta.1"
 deps.yet_another_config_lib_v3= "3.8.2+1.21.11-fabric"
-deps.eveningstarlib="1.2.1-fabric+1.21.11"
+deps.eveningstarlib="1.2.2-fabric+1.21.11"
 
 [fabric."26.1.2"]
 deps.minecraft = "26.1.2"
 deps.fabric-api = "0.155.2+26.1.2"
 deps.modmenu = "18.0.0"
 deps.yet_another_config_lib_v3= "3.9.6+26.1-fabric"
-deps.eveningstarlib="1.2.1-fabric+26.1.2"
+deps.eveningstarlib="1.2.2-fabric+26.1.2"
 publish.additionalVersions = ["26.1.1", "26.1"]
 
 [fabric."26.2"]
@@ -45,7 +45,15 @@ deps.minecraft = "26.2"
 deps.fabric-api = "0.159.0+26.2"
 deps.modmenu = "20.0.1"
 deps.yet_another_config_lib_v3= "3.9.6+26.2-fabric"
-deps.eveningstarlib="1.2.1-fabric+26.2"
+deps.eveningstarlib="1.2.2-fabric+26.2"
+publish.additionalVersions = []
+
+[fabric."26.3"]
+deps.minecraft = "26.3-rc-1"
+deps.fabric-api = "0.160.3+26.3"
+deps.modmenu = "21.0.0-alpha.1"
+deps.yet_another_config_lib_v3= "3.9.6+26.3-fabric"
+deps.eveningstarlib="1.2.2-fabric+26.2"
 publish.additionalVersions = []
 
 [neoforge]
@@ -54,18 +62,25 @@ publish.additionalVersions = []
 deps.minecraft = "1.21.11"
 deps.neoforge = "21.11.45"
 deps.yet_another_config_lib_v3= "3.8.2+1.21.11-neoforge"
-deps.eveningstarlib="1.2.1-neoforge+1.21.11"
+deps.eveningstarlib="1.2.2-neoforge+1.21.11"
 
 [neoforge."26.1.2"]
 deps.minecraft = "26.1.2"
 deps.neoforge = "26.1.2.100"
 deps.yet_another_config_lib_v3= "3.9.6+26.1-neoforge"
-deps.eveningstarlib="1.2.1-neoforge+26.1.2"
+deps.eveningstarlib="1.2.2-neoforge+26.1.2"
 publish.additionalVersions = ["26.1.1", "26.1"]
 
 [neoforge."26.2"]
 deps.minecraft = "26.2"
 deps.neoforge = "26.2.0.75"
 deps.yet_another_config_lib_v3= "3.9.6+26.2-neoforge"
-deps.eveningstarlib="1.2.1-neoforge+26.2"
+deps.eveningstarlib="1.2.2-neoforge+26.2"
+publish.additionalVersions = []
+
+[neoforge."26.3"]
+deps.minecraft = "26.3-rc-1"
+deps.neoforge = "26.2.0.75"
+deps.yet_another_config_lib_v3= "3.9.6+26.2-neoforge"
+deps.eveningstarlib="1.2.2-neoforge+26.2"
 publish.additionalVersions = []
