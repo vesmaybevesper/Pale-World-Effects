@@ -50,8 +50,6 @@ public class FogRendererMixin {
 	private static FogData capturedFog;
 
 	@Inject(method = "setupFog", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/renderer/fog/environment/FogEnvironment;setupFog(Lnet/minecraft/client/renderer/fog/FogData;Lnet/minecraft/client/Camera;Lnet/minecraft/client/multiplayer/ClientLevel;FLnet/minecraft/client/DeltaTracker;)V", shift = At.Shift.BEFORE), locals = LocalCapture.CAPTURE_FAILHARD)
-	// the worlds longest version replace annotation
-
 	//~ if 1.21.11 'Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment' -> 'Camera camera, int i, DeltaTracker deltaTracker, float f, ClientLevel clientLevel, CallbackInfoReturnable<Vector4f> cir, @Local Entity entity, @Local Vector4f color, @Local FogData fog'
 	private static void onFogStart(Camera camera, int renderDistanceInChunks, DeltaTracker deltaTracker, float darkenWorldAmount, ClientLevel level, CallbackInfoReturnable<FogData> cir, float partialTickTime, float renderDistanceInBlocks, FogType fogType, Entity entity, FogData fog, Iterator var11, FogEnvironment fogEnvironment) {
 		capturedEntity = entity;
@@ -73,11 +71,11 @@ public class FogRendererMixin {
 				if (Config.fogType == Config.FogType.VANILLA) {
 					if (Config.gamemodeFog){
 						if (!player.isCreative() && !player.isSpectator()){
-							//~ if 1.21.11 'renderBlocks, fog, fogAlphaBase, player' -> 'h, capturedFog, fogAlphaBase, player, capturedColor'
+							//~ if 1.21.11 'renderBlocks, fog, fogAlphaBase, player' -> 'renderBlocks, capturedFog, fogAlphaBase, player, capturedColor'
 							FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
 						}
 					} else {
-						//~ if 1.21.11 'renderBlocks, fog, fogAlphaBase, player' -> 'h, capturedFog, fogAlphaBase, player, capturedColor'
+						//~ if 1.21.11 'renderBlocks, fog, fogAlphaBase, player' -> 'renderBlocks, capturedFog, fogAlphaBase, player, capturedColor'
 						FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
 					}
 				} else if (Config.fogType == Config.FogType.SHADER) {
