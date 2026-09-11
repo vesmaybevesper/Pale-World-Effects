@@ -8,13 +8,11 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 import net.minecraft.world.level.levelgen.Heightmap;
-import org.joml.Vector4f;
 
 import static dev.vesper.palegardenfx.common.util.FogStateManager.fogFade;
 
 public class FogCode {
 
-	//~ if 1.21.11 'float renderBlocks, FogData fog, float fogAlphaBase, Player player' -> 'float renderBlocks, FogData fog, float fogAlphaBase, Player player, Vector4f color'
 	public static void setFogBuffer(float renderBlocks, FogData fog, float fogAlphaBase, Player player) {
 		if (Config.fogType == Config.FogType.VANILLA) {
 			BlockPos pos = player.getOnPos();
@@ -50,12 +48,10 @@ public class FogCode {
 
 			fog.skyEnd = fog.environmentalEnd;
 			fog.cloudEnd = fog.environmentalEnd;
-			//~ if 1.21.11 'fog.color' -> 'color' {
 			fog.color.x += fogFade * (0.8F - fog.color.x);
 			fog.color.y += fogFade * (0.8F - fog.color.y);
 			fog.color.z += fogFade * (0.85F - fog.color.z);
 			fog.color.w += fogFade * (fogAlphaBase - fog.color.w);
-			//~}
 		}
 	}
 }

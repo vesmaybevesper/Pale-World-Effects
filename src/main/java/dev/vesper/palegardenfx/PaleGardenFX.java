@@ -1,7 +1,9 @@
 package dev.vesper.palegardenfx;
 
+import dev.vesper.eveningstarlib.common.aurora.Aurora;
 import dev.vesper.palegardenfx.platform.Platform;
-
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.PreferredGraphicsApi;
 import net.minecraft.resources.Identifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,6 +32,12 @@ public class PaleGardenFX {
 	public static void onInitializeClient() {
 		LOGGER.info("Initializing {} Client on {}", MOD_ID, PaleGardenFX.xplat().loader());
 		LOGGER.debug("{}: { version: {}; friendly_name: {} }", MOD_ID, MOD_VERSION, MOD_FRIENDLY_NAME);
+		//? if >=26.2 {
+		if (Minecraft.getInstance().options.preferredGraphicsBackend().equals(PreferredGraphicsApi.VULKAN)) {
+			Aurora.registerUniform("passedChecks", Aurora.UniformType.BOOL);
+			Aurora.setUniform("passedChecks", false);
+		}
+		//?}
 	}
 
 	static Platform xplat() {
