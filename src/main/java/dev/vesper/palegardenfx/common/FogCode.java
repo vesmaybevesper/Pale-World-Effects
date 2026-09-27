@@ -18,12 +18,11 @@ public class FogCode {
 			BlockPos pos = player.getOnPos();
 			assert Minecraft.getInstance().level != null;
 			Holder<Biome> biome = Minecraft.getInstance().level.getBiome(pos);
-			if (!biome.is(Biomes.PALE_GARDEN)) {
+			int topY = Minecraft.getInstance().level.getHeight(Heightmap.Types.WORLD_SURFACE, pos.getX(), pos.getZ());
+			/*if (!biome.is(Biomes.PALE_GARDEN)) {
 				if (fogFade != 0.0f) fogFade = Math.min(fogFade - 0.002F, 0.0F);
 				return;
 			}
-
-			int topY = Minecraft.getInstance().level.getHeight(Heightmap.Types.WORLD_SURFACE, pos.getX(), pos.getZ());
 
 			if (biome.is(Biomes.PALE_GARDEN)) {
 				if (player.getY() <= (double) (topY + 15) && player.getY() >= 15.0D) {
@@ -51,7 +50,39 @@ public class FogCode {
 			fog.color.x += fogFade * (0.8F - fog.color.x);
 			fog.color.y += fogFade * (0.8F - fog.color.y);
 			fog.color.z += fogFade * (0.85F - fog.color.z);
-			fog.color.w += fogFade * (fogAlphaBase - fog.color.w);
+			fog.color.w += fogFade * (fogAlphaBase - fog.color.w);*/
+
+			if (fogFade > 0 && !biome.is(Biomes.PALE_GARDEN)){
+				if (fogFade != 0.0f) fogFade = Math.max(fogFade - 0.002F, 0.0F);
+			} else if (biome.is(Biomes.PALE_GARDEN)){
+				if (fogFade <= 1.0 && player.getY() <= (double) (topY + 15) && player.getY() >= 15.0D) {
+					fogFade = Math.min(fogFade + 0.002F, 1.0F);
+				} else {
+					if (!(fogFade > 0.0F)) {
+						return;
+					}
+					fogFade = Math.max(fogFade - 0.002F, 0.0F);
+				}
+			}
+
+			if (fogFade > 0){
+				if (Config.horrorMode) {
+					fog.environmentalStart = renderBlocks * 0.8F + fogFade * (0.1F - renderBlocks * 0.8F);
+					fog.environmentalEnd = renderBlocks + fogFade * (8.0F - renderBlocks);
+					fogAlphaBase = 0.99F;
+				} else {
+					fog.environmentalStart = renderBlocks * 0.8F + fogFade * (Config.fogStart - renderBlocks * 0.8F);
+					fog.environmentalEnd = renderBlocks + fogFade * (Config.fogEnd - renderBlocks);
+					fogAlphaBase = Config.fogTransparency;
+				}
+
+				fog.skyEnd = fog.environmentalEnd;
+				fog.cloudEnd = fog.environmentalEnd;
+				fog.color.x += fogFade * (0.8F - fog.color.x);
+				fog.color.y += fogFade * (0.8F - fog.color.y);
+				fog.color.z += fogFade * (0.85F - fog.color.z);
+				fog.color.w += fogFade * (fogAlphaBase - fog.color.w);
+			}
 		}
 	}
 }

@@ -18,7 +18,7 @@ import dev.vesper.palegardenfx.platform.fabric.FabricPlatform;
 public class PaleGardenFX {
 
 	public static final String MOD_ID = /*$ mod_id*/ "palegardenfx";
-	public static final String MOD_VERSION = /*$ mod_version*/ "1.3.3";
+	public static final String MOD_VERSION = /*$ mod_version*/ "1.3.4";
 	public static final String MOD_FRIENDLY_NAME = /*$ mod_name*/ "Pale Garden Effects";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 

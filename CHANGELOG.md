@@ -1,2 +1,1 @@
-- Add Support for 26.3
-
+- Fog now fades out when leaving the Pale Garden before reverting to vanilla environment fog
