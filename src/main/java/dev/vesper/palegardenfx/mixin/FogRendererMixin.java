@@ -58,9 +58,9 @@ public class FogRendererMixin {
 						FogCode.setFogBuffer(renderBlocks, fog, fogAlphaBase, player);
 					}
 				} else if (Config.fogType == Config.FogType.SHADER) {
-					//this type is intended for a future custom fog shader option so it shouldn't do anything RN
+					// This type is intended for a future custom fog shader option so it shouldn't do anything RN
 					// Requires Vulkan cause that's the API I wrote the uploader for, probably won't port it to OpenGL unless Mojang really drag their feet on going Vulkan
-					// Regardless, if you are reading this, this code does nothing as the uploader never fires in ESL lol. I'll delete this comment when its go time
+					// Regardless, if you are reading this, this code does nothing as the uploader never fires in ESL lol. I'll delete this comment when its time go
 					//? if >=26.2 {
 					if (Minecraft.getInstance().options.preferredGraphicsBackend().equals(PreferredGraphicsApi.VULKAN)) {
 						Aurora.setUniform("passedChecks", true);
